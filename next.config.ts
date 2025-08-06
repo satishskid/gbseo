@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Disable type checking during build to avoid SSR context issues
+  // Disable type checking during build
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   
   // Enable external packages
   serverExternalPackages: ['@clerk/nextjs'],
+  
+  // Use standalone output for Netlify Functions
+  output: 'standalone',
   
   // Environment variables
   env: {
