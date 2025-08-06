@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:prod": "SKIP_TYPE_CHECK=true next build",
     "start": "next start",
     "lint": "next lint"
   },

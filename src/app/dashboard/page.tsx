@@ -1,7 +1,10 @@
 'use client';
 
+// Force dynamic rendering to avoid static generation issues with Clerk
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
-import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
+import { ClerkProvider, SignedIn, UserButton, useUser } from '@clerk/nextjs';
 import { contentAPI } from '@/lib/content-api';
 import Link from 'next/link';
 
@@ -203,8 +206,9 @@ export default function Dashboard() {
   }, [user]);
 
   return (
-    <SignedIn>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <ClerkProvider>
+      <SignedIn>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
         {/* Header */}
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -574,5 +578,6 @@ export default function Dashboard() {
         </div>
       </div>
     </SignedIn>
+    </ClerkProvider>
   );
 }

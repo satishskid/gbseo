@@ -1,16 +1,32 @@
 // User access control for internal team vs external users
 import { currentUser } from '@clerk/nextjs/server';
+import type { User } from '@clerk/nextjs/server';
 
-export async function getUserAccessLevel() {
+interface AccessLevel {
+  level: 'none' | 'internal' | 'external';
+  user: User | null;
+  userEmail?: string;
+  isInternalTeam: boolean;
+  paymentGatewayEnabled: boolean;
+  hasFullAccess: boolean;
+}
+
+export async function getUserAccessLevel(): Promise<AccessLevel> {
   const user = await currentUser();
   
   if (!user) {
-    return { level: 'none', user: null };
+    return { 
+      level: 'none', 
+      user: null,
+      isInternalTeam: false,
+      paymentGatewayEnabled: false,
+      hasFullAccess: false
+    };
   }
 
   const userEmail = user.emailAddresses[0]?.emailAddress;
   const internalTeamEmails = (process.env.INTERNAL_TEAM_EMAILS || '').split(',');
-  const isInternalTeam = internalTeamEmails.includes(userEmail);
+  const isInternalTeam = internalTeamEmails.includes(userEmail || '');
   const paymentGatewayEnabled = process.env.PAYMENT_GATEWAY_ENABLED === 'true';
 
   return {
@@ -23,7 +39,7 @@ export async function getUserAccessLevel() {
   };
 }
 
-export function getSubscriptionStatus(accessLevel: any) {
+export function getSubscriptionStatus(accessLevel: AccessLevel) {
   if (accessLevel.isInternalTeam) {
     return {
       plan: 'Internal Team',

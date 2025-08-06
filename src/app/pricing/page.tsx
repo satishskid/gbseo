@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering for authentication pages
+export const dynamic = 'force-dynamic';
+
 import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';

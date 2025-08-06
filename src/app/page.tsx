@@ -1,9 +1,13 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
+// Force dynamic rendering for authentication
+export const dynamic = 'force-dynamic';
+
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <ClerkProvider>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -128,5 +132,6 @@ export default function Home() {
         </SignedIn>
       </main>
     </div>
+    </ClerkProvider>
   );
 }
