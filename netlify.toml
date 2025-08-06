@@ -1,23 +1,14 @@
 [build]
-  publish = ".next"
+  publish = "out"
   command = "npm run build"
 
 [build.environment]
   NODE_VERSION = "18"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-# Next.js server function redirects
+# SPA redirects for client-side routing
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-
-# API routes
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/___netlify-handler"
+  to = "/index.html"
   status = 200
 
 # Headers for static assets

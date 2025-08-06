@@ -11,21 +11,18 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Enable external packages
-  serverExternalPackages: ['@clerk/nextjs'],
-  
-  // Use standalone output for Netlify functions
-  output: 'standalone',
-  trailingSlash: false,
+  // Enable static export for Netlify
+  output: 'export',
+  trailingSlash: true,
   
   // Environment variables
   env: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   },
   
-  // Image optimization
+  // Image optimization - disabled for static export
   images: {
-    domains: ['images.clerk.dev'],
+    unoptimized: true,
   },
 };
 
