@@ -8,30 +8,19 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
+# Next.js server function redirects
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/___netlify-handler"
   status = 200
 
-# Disable static optimization for auth pages
+# API routes
 [[redirects]]
-  from = "/dashboard"
+  from = "/api/*"
   to = "/.netlify/functions/___netlify-handler"
   status = 200
-  force = true
 
-[[redirects]]
-  from = "/analytics"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/pricing"
-  to = "/.netlify/functions/___netlify-handler"
-  status = 200
-  force = true
-
+# Headers for static assets
 [[headers]]
   for = "/_next/static/*"
   [headers.values]

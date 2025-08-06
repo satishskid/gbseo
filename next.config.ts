@@ -14,8 +14,9 @@ const nextConfig: NextConfig = {
   // Enable external packages
   serverExternalPackages: ['@clerk/nextjs'],
   
-  // Use standalone output for Netlify Functions
+  // Use standalone output for Netlify functions
   output: 'standalone',
+  trailingSlash: false,
   
   // Environment variables
   env: {
